@@ -26,7 +26,7 @@ export const login = asyncHandler(async (req, res, next) => {
   }
   let user = await User.findOne({ email, role }).select("+password");
   if (!user) {
-    return next(new ErrorHandler("User doesnt exist", 401));
+    return next(new ErrorHandler("Invalid email , password or role", 401));
   }
   const isPasswordMatched = await user.comparePassword(password);
   if (!isPasswordMatched) {
