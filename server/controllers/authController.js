@@ -4,6 +4,7 @@ import ErrorHandler from "../middlewares/error.js";
 import { generateToken } from "../utils/generateToken.js";
 import { generateForgotPasswordEmailTemplate } from "../utils/emailTemplate.js";
 import crypto from "crypto";
+import { sendEmail } from "../services/emailService.js";
 
 export const registerUser = asyncHandler(async (req, res, next) => {
   const { name, email, password, role } = req.body;
@@ -69,9 +70,9 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordUrl = `${process.env.FRONTEND_URL}/reset-password/?token=${resetToken}`;
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
 
-  const message = generateForgotEmailPasswordTemplate(resetPasswordUrl);
+  const message = generateForgotPasswordEmailTemplate(resetPasswordUrl);
 
   try {
     await sendEmail({
