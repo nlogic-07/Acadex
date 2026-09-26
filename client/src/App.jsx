@@ -35,9 +35,78 @@ import { ToastContainer } from "react-toastify";
 import { Loader } from "lucide-react";
 
 const App = () => {
-
   return (
-    <></>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+      </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        closeOnClick
+        pauseOnHover
+        theme="light"
+        toastClassName={(context) => {
+          const type = context?.type;
+
+          return `
+      !w-[420px]
+      !min-h-[64px]
+      !rounded-lg
+      !shadow-md
+      !border
+      !px-4
+      !py-3
+      !text-black
+
+      !flex
+      !items-center
+      !flex-row
+
+      ${
+        type === "success"
+          ? "!bg-green-50/60 !border-green-200 !border-l-4 !border-l-green-500"
+          : ""
+      }
+
+      ${
+        type === "error"
+          ? "!bg-red-50/60 !border-red-200 !border-l-4 !border-l-red-500"
+          : ""
+      }
+
+      ${
+        type === "warning"
+          ? "!bg-yellow-50/60 !border-yellow-200 !border-l-4 !border-l-yellow-500"
+          : ""
+      }
+
+      ${
+        type === "info"
+          ? "!bg-blue-50/60 !border-blue-200 !border-l-4 !border-l-blue-500"
+          : ""
+      }
+    `;
+        }}
+        toastStyle={{
+          display: "flex",
+          alignItems: "center",
+        }}
+        bodyClassName="
+    !p-0
+    !m-0
+    !flex
+    !flex-row
+    !items-center
+    !gap-3
+    !w-full
+    !text-black
+  "
+      />
+    </BrowserRouter>
   );
 };
 
