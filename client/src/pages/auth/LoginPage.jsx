@@ -58,7 +58,7 @@ const LoginPage = () => {
     data.append("role", formData.role);
 
     dispatch(login(data));
-    setformData({ email: "", password: "", role: "" });
+    setformData({ email: "", password: "", role: "Student" });
   };
 
   useEffect(() => {

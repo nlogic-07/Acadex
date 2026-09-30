@@ -15,15 +15,31 @@ export const login = createAsyncThunk("login", async (data, thunkAPI) => {
   }
 });
 
+export const forgotPassword = createAsyncThunk(
+  "forgotPassword",
+  async (email, thunkAPI) => {
+    try {
+      const res = await axiosInstance.post("/auth/password/forgot", email, {
+        headers: { "Content-Type": "application/json" },
+      });
+      toast.success(res.data.message);
+      return null;
+    } catch (err) {
+      toast.error(err.response.data.message);
+      return thunkAPI.rejectWithValue(err.response.data.message);
+    }
+  },
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     authUser: null,
     isSigningUp: false,
     isLoggingIn: false,
+    isRequestingForToken: false,
     isUpdatingProfile: false,
     isUpdatingPassword: false,
-    isRequestingForToken: false,
     isCheckingAuth: true,
   },
   extraReducers: (builder) => {
@@ -37,6 +53,15 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.isLoggingIn = false;
+      })
+      .addCase(forgotPassword.pending, (state) => {
+        state.isRequestingForToken = true;
+      })
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.isRequestingForToken = false;
+      })
+      .addCase(forgotPassword.rejected, (state) => {
+        state.isRequestingForToken = false;
       });
   },
 });

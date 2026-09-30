@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 // Auth Pages
 import LoginPage from "./pages/auth/LoginPage";
@@ -30,7 +30,7 @@ import ManageTeachers from "./pages/admin/ManageTeachers";
 import AssignSupervisor from "./pages/admin/AssignSupervisor";
 import DeadlinesPage from "./pages/admin/DeadlinesPage";
 import ProjectsPage from "./pages/admin/ProjectsPage";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { Loader } from "lucide-react";
 
